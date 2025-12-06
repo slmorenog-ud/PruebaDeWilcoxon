@@ -17,7 +17,7 @@ El proyecto se centra en la **Prueba de rangos con signo de Wilcoxon para un exp
 - **ÁLVAREZ ORTIZ ARLEY SANTIAGO** - 20241020008
 - **MARTÍNEZ PARDO SILVANA** - 20241020010
 - **MORENO GRANADO SERGIO LEONARDO** - 20242020091
-- **RODRÍguez CAMACHO JUAN ESTEBAN** - 20241020029
+- **RODRÍGUEZ CAMACHO JUAN ESTEBAN** - 20241020029
 
 ## Información Adicional
 
