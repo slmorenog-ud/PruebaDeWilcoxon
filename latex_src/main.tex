@@ -1,0 +1,147 @@
+%%----------------------------------------------------------------------------------
+% Configuracion del documento: A4, 11pt, impresion a una cara, estilo libro.
+%%----------------------------------------------------------------------------------
+\documentclass[a4paper,11pt,oneside]{book}
+
+% --- PAQUETES ESENCIALES ---
+
+% Codificacion y fuentes para espanol
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+
+% Paquetes para matematicas, graficos y geometria
+\usepackage{amsmath}
+\usepackage{graphicx} % Necesario para incluir imagenes (logo)
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{caption}  % Para personalizar los pies de foto
+
+% Configuracion de margenes
+\geometry{
+    a4paper,
+    top=2.5cm,
+    bottom=2.5cm,
+    left=3cm,
+    right=3cm
+}
+
+% --- GESTION DE BIBLIOGRAFIA CON BIBLATEX (ESTILO APA) ---
+\usepackage[style=apa, backend=biber]{biblatex}
+\addbibresource{references.bib} % Apunta al archivo .bib
+
+% --- PAQUETE PARA INSERTAR CODIGO FUENTE ---
+\usepackage{listings}
+\usepackage{xcolor}
+
+% Configuracion de 'listings' para el codigo de Python
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\footnotesize\ttfamily,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2
+}
+\lstset{style=mystyle}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+% --- CONFIGURACION DE PIES DE FOTO ---
+\captionsetup[figure]{margin=1.5cm,font=small,name={Figura},labelsep=colon}
+\captionsetup[table]{margin=1.5cm,font=small,name={Tabla},labelsep=colon}
+
+\frontmatter % Inicio de las paginas preliminares (portada, indice)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% --- PORTADA ---
+\begin{titlepage}
+    \begin{center}
+        % IMPORTANTE: Colocar el archivo 'UDLogo.png' en la carpeta 'latex_src/figures/'
+        \includegraphics[width=6cm]{figures/UDLogo.png}\\[0.5cm]
+        {\LARGE Universidad Distrital Francisco José de Caldas\\[0.3cm]
+        Facultad de Ingeniería\\[0.3cm]
+        Ingeniería de Sistemas}\\[2.5cm]
+
+        \linespread{1.0}\huge \textbf{
+            Prueba de Rangos con Signo de Wilcoxon para Observaciones Pareadas
+        }
+        \linespread{1}~\\[2.5cm]
+
+        {\Large
+            Álvarez Ortiz Arley Santiago - 20241020008 \\
+            Martínez Pardo Silvana - 20241020010 \\
+            Moreno Granado Sergio Leonardo - 20242020091 \\
+            Rodríguez Camacho Juan Esteban - 20241020029
+        }\\[2cm]
+
+        {\Large
+            \emph{Docente:} Diego Alberto Chitiva Huertas, M.Sc.}\\[1.5cm]
+
+        \large Un reporte presentado para el Proyecto Final de Probabilidad y Estadística\\
+        Semestre 2025-II % Ajustar si es necesario
+        \\[0.3cm]
+        \vfill
+
+        Diciembre de 2025, Bogotá D.C.
+    \end{center}
+\end{titlepage}
+
+\mainmatter % Inicio del contenido principal del documento
+
+\tableofcontents
+\newpage
+
+% --- INTRODUCCION ---
+\section{Introducción}
+\label{sec:introduccion}
+En este apartado se debe delimitar el tema... (Texto de ejemplo)
+% (El resto del contenido de las secciones se mantiene igual)
+
+% --- DESARROLLO ---
+\section{Desarrollo}
+\label{sec:desarrollo}
+Esta es la sección principal...
+\subsection{Fundamentación Teórica}
+Aquí se debe explicar la teoría...
+Citamos nuestra fuente de ejemplo \parencite{wackerly2008}.
+
+% --- ALGORITMO ---
+\section{Algoritmo}
+\label{sec:algoritmo}
+En esta sección se presenta la implementación...
+\begin{lstlisting}[language=Python, caption=Algoritmo de Wilcoxon en Python]
+# El codigo de ejemplo se mantiene...
+import numpy as np
+from scipy.stats import wilcoxon
+
+def prueba_wilcoxon_pareada(muestra1, muestra2, alpha=0.05):
+    pass # Implementacion
+\end{lstlisting}
+
+% --- CONCLUSION ---
+\section{Conclusión}
+\label{sec:conclusion}
+En la conclusión, deben resumir...
+
+% --- BIBLIOGRAFIA ---
+\printbibliography[title={Bibliografía}]
+
+
+\end{document}
