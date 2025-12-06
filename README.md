@@ -8,16 +8,16 @@ El proyecto se centra en la **Prueba de rangos con signo de Wilcoxon para un exp
 
 ## Estructura del Proyecto
 
-- **`/documento`**: Contiene el archivo fuente `.tex` del ensayo argumentativo, junto con la bibliografía y otros recursos necesarios para la compilación del documento.
+- **`/latex_src`**: Contiene el archivo fuente `.tex` del ensayo argumentativo, junto con la bibliografía y otros recursos necesarios para la compilación del documento.
 - **`/algoritmo`**: Incluye el código fuente en Python de la implementación del algoritmo de Wilcoxon.
 - **`README.md`**: Este archivo, con la descripción general del proyecto.
 
 ## Integrantes - Turno #10
 
-- **ÁLVAREZ ORTIZ ARLEY SANTIAGO** - 20241020008
-- **MARTÍNEZ PARDO SILVANA** - 20241020010
-- **MORENO GRANADO SERGIO LEONARDO** - 20242020091
-- **RODRÍGUEZ CAMACHO JUAN ESTEBAN** - 20241020029
+- **Álvarez Ortiz Arley Santiago** - 20241020008
+- **Martínez Pardo Silvana** - 20241020010
+- **Moreno Granado Sergio Leonardo** - 20242020091
+- **Rodríguez Camacho Juan Esteban** - 20241020029
 
 ## Información Adicional
 
