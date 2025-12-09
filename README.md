@@ -26,6 +26,6 @@ El proyecto se centra en la **Prueba de rangos con signo de Wilcoxon para un exp
 - **Programa**: Ingeniería de Sistemas
 - **Asignatura**: Probabilidad y Estadística
 - **Docente**: Diego Alberto Chitiva Huertas
-- **Fecha de entrega**: Miércoles, 10 de diciembre
+- **Fecha de entrega**: Jueves, 11 de diciembre
 
 Este proyecto busca aplicar los conceptos teóricos de la estadística en un problema práctico, desarrollando una solución algorítmica y documentando el proceso de manera formal.
