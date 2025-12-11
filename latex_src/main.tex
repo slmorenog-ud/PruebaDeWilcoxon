@@ -29,6 +29,19 @@
 \usepackage{array}
 \usepackage{float}
 
+% --- ENCABEZADOS Y PIES DE PÁGINA ---
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\footnotesize\itshape Universidad Distrital Francisco José de Caldas - Ingeniería de Sistemas}
+\fancyhead[R]{\footnotesize\itshape Probabilidad y Estadística}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% --- ESPACIADO DE PÁRRAFOS ---
+\setlength{\parskip}{0.5\baselineskip}
+\setlength{\parindent}{0pt}
+
 % --- NUMERACIÓN DE SECCIONES (sin número de capítulo) ---
 \renewcommand{\thesection}{\arabic{section}}
 \renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
@@ -73,6 +86,10 @@
 % --- PAQUETES AUXILIARES ---
 \usepackage{caption}
 
+% --- BIBLIOGRAFÍA APA ---
+\usepackage[natbibapa]{apacite}  % Paquete para estilo APA
+\bibliographystyle{apacite}      % Estilo APA
+
 % --- HIPERVÍNCULOS (cargar al final) ---
 \usepackage{hyperref}
 
@@ -90,7 +107,7 @@
         }
 
         \linespread{1.0}\huge \textbf{\textit{
-            De Rangos y Signos: Un Enfoque No Paramétrico para la Comparación de Observaciones Pareadas
+            Rompiendo Supuestos: La Potencia Estadística del Método de Wilcoxon
         }}
         \linespread{1}\\[2.5cm]
 
@@ -216,7 +233,7 @@ Para una prueba bilateral con $\alpha = 0.05$, se rechaza $H_0$ si $|Z| > 1.96$.
 
 \subsection{Manejo de Empates}
 
-Cuando dos o más diferencias tienen el mismo valor absoluto, se presenta un empate. Como señalan Conover \cite{conover1999} y Siegel y Castellan \cite{siegel1988}, el procedimiento estándar consiste en asignar a cada valor empatado el promedio de los rangos que les corresponderían. Por ejemplo, si tres valores ocupan las posiciones 4, 5 y 6, cada uno recibe el rango $(4+5+6)/3 = 5$.
+Cuando dos o más diferencias tienen el mismo valor absoluto, se presenta un empate. Como señalan \cite{conover1999} y   \cite{siegel1988}, el procedimiento estándar consiste en asignar a cada valor empatado el promedio de los rangos que les corresponderían. Por ejemplo, si tres valores ocupan las posiciones 4, 5 y 6, cada uno recibe el rango $(4+5+6)/3 = 5$.
 
 \subsection{Ejemplo Aplicado}
 
@@ -458,8 +475,6 @@ def decision_aproximacion_normal(n, T_positivo, alpha=0.05):
         return f"No rechazar H0 (Z={Z:.4f})"
 \end{lstlisting}
 
-El código completo está disponible en el repositorio del proyecto, con versiones interactiva y automatizada para diferentes entornos de ejecución.
-
 % --- CONCLUSIÓN ---
 \section{Conclusión}
 \label{sec:conclusion}
@@ -475,20 +490,7 @@ En el ámbito de la ingeniería de sistemas, la Prueba de Wilcoxon encuentra apl
 En conclusión, dominar esta técnica no paramétrica enriquece el repertorio metodológico del profesional en ingeniería, proporcionando una alternativa rigurosa cuando las condiciones para aplicar métodos paramétricos no se cumplen. La combinación de fundamentos teóricos sólidos con una implementación práctica refuerza la comprensión integral del método y su aplicabilidad en problemas reales.
 
 % --- BIBLIOGRAFÍA ---
-\begin{thebibliography}{9}
-
-\bibitem{wackerly2008}
-Wackerly, D., Mendenhall, W., \& Scheaffer, R. (2008). \emph{Mathematical Statistics with Applications} (7th ed.). Cengage Learning.
-
-\bibitem{conover1999}
-Conover, W. J. (1999). \emph{Practical Nonparametric Statistics} (3rd ed.). John Wiley \& Sons.
-
-\bibitem{hollander2014}
-Hollander, M., Wolfe, D. A., \& Chicken, E. (2014). \emph{Nonparametric Statistical Methods} (3rd ed.). John Wiley \& Sons.
-
-\bibitem{siegel1988}
-Siegel, S., \& Castellan, N. J. (1988). \emph{Nonparametric Statistics for the Behavioral Sciences} (2nd ed.). McGraw-Hill.
-
-\end{thebibliography}
+\newpage
+\bibliography{references}  % Se carga desde references.bib
 
 \end{document}
