@@ -4,7 +4,7 @@ Este repositorio contiene el desarrollo del proyecto final para la asignatura de
 
 ## Tema
 
-El proyecto se centra en la **Prueba de rangos con signo de Wilcoxon para un experimento de observaciones pareadas**. El objetivo es implementar un algoritmo en Python para esta prueba, aplicable tanto a muestras pequeñas como a muestras grandes, basándose en la teoría de la sección 15.4 y 15.5 del texto "Estadística Matemática con aplicaciones" de Wackerly, Mendenhall y Scheaffer.
+El proyecto se centra en la **Prueba de rangos con signo de Wilcoxon para un experimento de observaciones pareadas**. El objetivo es implementar un algoritmo en Python para esta prueba, aplicable tanto a muestras pequeñas como a muestras grandes, basándose en la teoría de la sección 15.3 del texto "Estadística Matemática con aplicaciones" de Wackerly, Mendenhall y Scheaffer.
 
 ## Estructura del Proyecto
 
