@@ -1,7 +1,7 @@
 %%----------------------------------------------------------------------------------
-% Configuración del documento: A4, 11pt, impresión a una cara, estilo libro.
+% Configuración del documento: A4, 11pt, impresión a una cara, estilo artículo.
 %%----------------------------------------------------------------------------------
-\documentclass[a4paper,11pt,oneside]{book}
+\documentclass[a4paper,11pt,oneside]{article}
 
 % --- PAQUETES BÁSICOS ---
 \usepackage{fontspec}
@@ -75,8 +75,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
 
-\frontmatter
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % --- PORTADA ---
 \begin{titlepage}
@@ -89,7 +87,7 @@
 
         \linespread{1.0}\huge \textbf{\textit{
             Prueba de Rangos con Signo de Wilcoxon
-            para Observaciones Pareadas
+            para Observaciones Pareadas [Título que suene parchado]
         }}
         \linespread{1}\\[2.5cm]
 
@@ -112,23 +110,33 @@
     \end{center}
 \end{titlepage}
 
-\mainmatter
-
+% --- ÍNDICE ---
 \tableofcontents
 \newpage
 
 % --- INTRODUCCIÓN ---
 \section{Introducción}
-\label{sec:introduccion}
-En este apartado se debe delimitar el tema... (Texto de ejemplo)
+
+La comparación de dos condiciones relacionadas es un procedimiento fundamental en el análisis estadístico aplicado a diversas áreas como las ciencias sociales, la ingeniería y las ciencias biomédicas. En numerosos casos, las diferencias entre mediciones pareadas no cumplen con los supuestos de normalidad requeridos por pruebas paramétricas como la prueba \textit{t} de Student para muestras relacionadas. Para abordar estas situaciones surge la Prueba de Rangos con Signo de Wilcoxon, un método no paramétrico que permite evaluar si existen diferencias significativas entre dos conjuntos de observaciones dependientes sin exigir distribuciones normales ni tamaños muestrales elevados.
+
+Propuesta por Frank Wilcoxon en 1945, esta prueba ordena los valores absolutos de las diferencias pareadas, asigna rangos y analiza tanto la magnitud como la dirección de los cambios. Este procedimiento incorpora más información que métodos basados únicamente en signos, lo que se traduce en una mayor potencia estadística en contextos donde los datos no presentan normalidad. Debido a su flexibilidad, la prueba ha sido ampliamente utilizada en escenarios como el control de calidad, el análisis de experimentos con diseños repetidos, la validación de algoritmos y la evaluación de intervenciones en sistemas físicos o humanos.
+
+Gracias a estas características, la Prueba de Rangos con Signo de Wilcoxon se ha consolidado como una herramienta robusta para estudiar cambios dentro de un mismo grupo o sistema. Este artículo presenta los fundamentos teóricos del método, su procedimiento de aplicación y un ejemplo práctico que ilustra su utilidad en situaciones reales donde los métodos paramétricos resultan inapropiados.
 
 % --- DESARROLLO ---
 \section{Desarrollo}
 \label{sec:desarrollo}
 Esta es la sección principal...
 \subsection{Fundamentación Teórica}
-Aquí se debe explicar la teoría...
-Citamos nuestra fuente de ejemplo \parencite{wackerly2008}.
+
+La Prueba de Rangos con Signo de Wilcoxon es un procedimiento no paramétrico utilizado para comparar dos mediciones relacionadas cuando no se pueden asumir distribuciones normales en las diferencias. Se aplica en situaciones donde cada unidad experimental aporta un par de observaciones, con el objetivo de evaluar cambios o efectos bajo dos condiciones dependientes. Este método constituye una alternativa robusta a la prueba \textit{t} para muestras pareadas, especialmente en presencia de datos ordinales, distribuciones asimétricas o valores atípicos.
+
+El fundamento del método consiste en analizar tanto la dirección como la magnitud de las diferencias entre observaciones pareadas. Para ello, se calcula la diferencia entre cada par de mediciones y se eliminan los casos con diferencia igual a cero. Posteriormente, los valores absolutos de las diferencias se ordenan y se convierten en rangos, los cuales reciben el signo correspondiente según si el cambio fue positivo o negativo. La suma de los rangos positivos y negativos permite cuantificar la evidencia estadística contra la hipótesis nula.
+
+El estadístico de prueba es el menor entre las sumas de rangos positivos y negativos. Su distribución exacta está tabulada para tamaños de muestra pequeños, mientras que para muestras grandes se aplica una aproximación normal basada en la media y la varianza teóricas de las sumas de rangos. El contraste evalúa la hipótesis nula de que la distribución de las diferencias es simétrica alrededor de cero, de modo que una desviación sistemática indica un cambio significativo entre las dos condiciones evaluadas.
+
+Debido a su estructura basada en ordenamiento y sumas, la prueba es adecuada para su implementación computacional. Además, posee potencia estadística considerable en distribuciones simétricas no normales, lo que ha motivado su uso en estadística aplicada, psicometría, análisis biomédico, experimentación industrial y otros campos. En conjunto, la Prueba de Rangos con Signo de Wilcoxon se mantiene como una herramienta sólida para el análisis de observaciones pareadas en contextos donde los métodos paramétricos tradicionales no son apropiados.
+
 
 % --- ALGORITMO ---
 \section{Algoritmo}
@@ -169,6 +177,7 @@ print(f"Decisión: {resultado[2]}")
 En la conclusión, deben resumir...
 
 % --- BIBLIOGRAFÍA ---
+\nocite{wackerly2008}
 \printbibliography[title={Bibliografía}]
 
 \end{document}
