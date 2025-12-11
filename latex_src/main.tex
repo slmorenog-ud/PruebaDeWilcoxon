@@ -21,7 +21,10 @@
 
 % --- PAQUETES MATEMÁTICOS Y CIENTÍFICOS ---
 \usepackage{amsmath}
+\usepackage{amssymb}
 \usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
 
 % --- NUMERACIÓN DE SECCIONES (sin número de capítulo) ---
 \renewcommand{\thesection}{\arabic{section}}
@@ -86,8 +89,7 @@
         }
 
         \linespread{1.0}\huge \textbf{\textit{
-            Prueba de Rangos con Signo de Wilcoxon
-            para Observaciones Pareadas [Título que suene parchado]
+            De Rangos y Signos: Un Enfoque No Paramétrico para la Comparación de Observaciones Pareadas
         }}
         \linespread{1}\\[2.5cm]
 
@@ -117,67 +119,290 @@
 % --- INTRODUCCIÓN ---
 \section{Introducción}
 
-La comparación de dos condiciones relacionadas es un procedimiento fundamental en el análisis estadístico aplicado a diversas áreas como las ciencias sociales, la ingeniería y las ciencias biomédicas. En numerosos casos, las diferencias entre mediciones pareadas no cumplen con los supuestos de normalidad requeridos por pruebas paramétricas como la prueba \textit{t} de Student para muestras relacionadas. Para abordar estas situaciones surge la Prueba de Rangos con Signo de Wilcoxon, un método no paramétrico que permite evaluar si existen diferencias significativas entre dos conjuntos de observaciones dependientes sin exigir distribuciones normales ni tamaños muestrales elevados.
+La comparación de dos condiciones relacionadas es un procedimiento fundamental en el análisis estadístico aplicado a diversas áreas como las ciencias sociales, la ingeniería y las ciencias biomédicas. En numerosos casos, las diferencias entre mediciones pareadas no cumplen con los supuestos de normalidad requeridos por pruebas paramétricas como la prueba \textit{t} de Student para muestras relacionadas. Para abordar estas situaciones surge la Prueba de Rangos con Signo de Wilcoxon, un método no paramétrico que permite evaluar si existen diferencias significativas entre dos conjuntos de observaciones dependientes sin exigir distribuciones normales ni tamaños muestrales elevados \parencite{wackerly2008}.
 
-Propuesta por Frank Wilcoxon en 1945, esta prueba ordena los valores absolutos de las diferencias pareadas, asigna rangos y analiza tanto la magnitud como la dirección de los cambios. Este procedimiento incorpora más información que métodos basados únicamente en signos, lo que se traduce en una mayor potencia estadística en contextos donde los datos no presentan normalidad. Debido a su flexibilidad, la prueba ha sido ampliamente utilizada en escenarios como el control de calidad, el análisis de experimentos con diseños repetidos, la validación de algoritmos y la evaluación de intervenciones en sistemas físicos o humanos.
+Propuesta por Frank Wilcoxon en 1945, esta prueba ordena los valores absolutos de las diferencias pareadas, asigna rangos y analiza tanto la magnitud como la dirección de los cambios. Según \textcite{wackerly2008}, este procedimiento incorpora más información que métodos basados únicamente en signos, lo que se traduce en una mayor potencia estadística en contextos donde los datos no presentan normalidad. Debido a su flexibilidad, la prueba ha sido ampliamente utilizada en escenarios como el control de calidad, el análisis de experimentos con diseños repetidos, la validación de algoritmos y la evaluación de intervenciones en sistemas físicos o humanos.
 
-Gracias a estas características, la Prueba de Rangos con Signo de Wilcoxon se ha consolidado como una herramienta robusta para estudiar cambios dentro de un mismo grupo o sistema. Este artículo presenta los fundamentos teóricos del método, su procedimiento de aplicación y un ejemplo práctico que ilustra su utilidad en situaciones reales donde los métodos paramétricos resultan inapropiados.
+El presente documento tiene como propósito exponer los fundamentos teóricos de la Prueba de Rangos con Signo de Wilcoxon, su procedimiento de aplicación para muestras pequeñas y grandes, y una implementación algorítmica en Python que permite automatizar los cálculos. Se incluye además un ejemplo desarrollado paso a paso que ilustra la utilidad práctica del método en situaciones donde las pruebas paramétricas tradicionales resultan inapropiadas.
 
 % --- DESARROLLO ---
 \section{Desarrollo}
 \label{sec:desarrollo}
-Esta es la sección principal...
-\subsection{Fundamentación Teórica}
 
-La Prueba de Rangos con Signo de Wilcoxon es un procedimiento no paramétrico utilizado para comparar dos mediciones relacionadas cuando no se pueden asumir distribuciones normales en las diferencias. Se aplica en situaciones donde cada unidad experimental aporta un par de observaciones, con el objetivo de evaluar cambios o efectos bajo dos condiciones dependientes. Este método constituye una alternativa robusta a la prueba \textit{t} para muestras pareadas, especialmente en presencia de datos ordinales, distribuciones asimétricas o valores atípicos.
+\subsection{Fundamentos de las Pruebas No Paramétricas}
 
-El fundamento del método consiste en analizar tanto la dirección como la magnitud de las diferencias entre observaciones pareadas. Para ello, se calcula la diferencia entre cada par de mediciones y se eliminan los casos con diferencia igual a cero. Posteriormente, los valores absolutos de las diferencias se ordenan y se convierten en rangos, los cuales reciben el signo correspondiente según si el cambio fue positivo o negativo. La suma de los rangos positivos y negativos permite cuantificar la evidencia estadística contra la hipótesis nula.
+Las pruebas estadísticas pueden clasificarse en dos grandes categorías: paramétricas y no paramétricas. Las pruebas paramétricas, como la prueba \textit{t} de Student, requieren que los datos provengan de poblaciones con distribuciones conocidas (generalmente normal) y que se cumplan ciertos supuestos sobre los parámetros poblacionales. Cuando estos supuestos no se satisfacen, las pruebas no paramétricas ofrecen una alternativa robusta \parencite{wackerly2008}.
 
-El estadístico de prueba es el menor entre las sumas de rangos positivos y negativos. Su distribución exacta está tabulada para tamaños de muestra pequeños, mientras que para muestras grandes se aplica una aproximación normal basada en la media y la varianza teóricas de las sumas de rangos. El contraste evalúa la hipótesis nula de que la distribución de las diferencias es simétrica alrededor de cero, de modo que una desviación sistemática indica un cambio significativo entre las dos condiciones evaluadas.
+Las pruebas no paramétricas, también llamadas pruebas de distribución libre, no requieren supuestos sobre la forma de la distribución poblacional. Estas pruebas trabajan típicamente con rangos u ordenamientos de los datos en lugar de los valores originales, lo que las hace menos sensibles a valores atípicos y distribuciones asimétricas.
 
-Debido a su estructura basada en ordenamiento y sumas, la prueba es adecuada para su implementación computacional. Además, posee potencia estadística considerable en distribuciones simétricas no normales, lo que ha motivado su uso en estadística aplicada, psicometría, análisis biomédico, experimentación industrial y otros campos. En conjunto, la Prueba de Rangos con Signo de Wilcoxon se mantiene como una herramienta sólida para el análisis de observaciones pareadas en contextos donde los métodos paramétricos tradicionales no son apropiados.
+\subsection{La Prueba de Rangos con Signo de Wilcoxon}
 
+La Prueba de Rangos con Signo de Wilcoxon es un procedimiento no paramétrico utilizado para comparar dos mediciones relacionadas cuando no se pueden asumir distribuciones normales en las diferencias. Se aplica en situaciones donde cada unidad experimental aporta un par de observaciones $(X_{1i}, X_{2i})$, con el objetivo de evaluar si existe una diferencia significativa entre las dos condiciones \parencite{wackerly2008}.
+
+\subsubsection{Hipótesis}
+
+La prueba evalúa las siguientes hipótesis:
+\begin{itemize}
+    \item \textbf{Hipótesis nula ($H_0$):} La distribución de las diferencias $D_i = X_{1i} - X_{2i}$ es simétrica alrededor de cero. Es decir, no existe diferencia sistemática entre las dos condiciones.
+    \item \textbf{Hipótesis alternativa ($H_a$):} La distribución de las diferencias no es simétrica alrededor de cero (prueba bilateral), o está desplazada hacia valores positivos o negativos (prueba unilateral).
+\end{itemize}
+
+\subsubsection{Procedimiento}
+
+Según \textcite{wackerly2008}, el procedimiento para aplicar la Prueba de Rangos con Signo de Wilcoxon es el siguiente:
+
+\begin{enumerate}
+    \item \textbf{Calcular las diferencias:} Para cada par de observaciones $(X_{1i}, X_{2i})$, calcular la diferencia $D_i = X_{1i} - X_{2i}$.
+    
+    \item \textbf{Eliminar diferencias cero:} Descartar los pares donde $D_i = 0$ y reducir el tamaño de muestra efectivo $n$ al número de diferencias no nulas.
+    
+    \item \textbf{Asignar rangos:} Ordenar los valores absolutos $|D_i|$ de menor a mayor y asignar rangos del 1 al $n$. En caso de empates, asignar el rango promedio a los valores empatados.
+    
+    \item \textbf{Aplicar signos:} Asignar a cada rango el signo de la diferencia original $D_i$.
+    
+    \item \textbf{Calcular estadísticos:} Determinar:
+    \begin{itemize}
+        \item $T^+$: Suma de los rangos con signo positivo
+        \item $T^-$: Suma de los rangos con signo negativo
+    \end{itemize}
+    
+    \item \textbf{Obtener el estadístico de prueba:} El estadístico $T$ es el menor entre $T^+$ y $T^-$:
+    \[
+    T = \min(T^+, T^-)
+    \]
+    
+    \item \textbf{Tomar decisión:} Comparar $T$ con el valor crítico de la tabla de Wilcoxon o calcular el valor $Z$ para muestras grandes.
+\end{enumerate}
+
+Una propiedad importante es que la suma total de rangos siempre cumple:
+\[
+T^+ + T^- = \frac{n(n+1)}{2}
+\]
+
+\subsection{Muestras Pequeñas: Uso de la Tabla Exacta}
+
+Para muestras pequeñas (generalmente $n \leq 25$), la distribución del estadístico $T$ bajo $H_0$ está tabulada. \textcite{wackerly2008} proporcionan tablas con valores críticos para diferentes niveles de significancia $\alpha$.
+
+La regla de decisión para una prueba bilateral con nivel de significancia $\alpha$ es:
+\begin{quote}
+    Rechazar $H_0$ si $T \leq T_{\alpha/2}$, donde $T_{\alpha/2}$ es el valor crítico de la tabla.
+\end{quote}
+
+\subsection{Muestras Grandes: Aproximación Normal}
+
+Para tamaños de muestra grandes ($n > 25$), la distribución del estadístico $T^+$ puede aproximarse mediante una distribución normal. Según \textcite{wackerly2008}, bajo la hipótesis nula, los parámetros de esta distribución son:
+
+\textbf{Media:}
+\[
+\mu_{T^+} = E(T^+) = \frac{n(n+1)}{4}
+\]
+
+\textbf{Varianza:}
+\[
+\sigma^2_{T^+} = V(T^+) = \frac{n(n+1)(2n+1)}{24}
+\]
+
+El estadístico estandarizado $Z$ se calcula como:
+\[
+Z = \frac{T^+ - \mu_{T^+}}{\sigma_{T^+}} = \frac{T^+ - \frac{n(n+1)}{4}}{\sqrt{\frac{n(n+1)(2n+1)}{24}}}
+\]
+
+Para una prueba bilateral con $\alpha = 0.05$, se rechaza $H_0$ si $|Z| > 1.96$.
+
+\subsection{Manejo de Empates}
+
+Cuando dos o más diferencias tienen el mismo valor absoluto, se presenta un empate. El procedimiento estándar consiste en asignar a cada valor empatado el promedio de los rangos que les corresponderían. Por ejemplo, si tres valores ocupan las posiciones 4, 5 y 6, cada uno recibe el rango $(4+5+6)/3 = 5$.
+
+\subsection{Ejemplo Desarrollado}
+
+A continuación se presenta un ejemplo que ilustra la aplicación paso a paso de la Prueba de Rangos con Signo de Wilcoxon.
+
+\textbf{Contexto:} Un investigador desea evaluar si un programa de entrenamiento musical mejora la capacidad de lectura en niños. Se miden las puntuaciones de 10 niños antes y después del programa.
+
+\begin{table}[h]
+\centering
+\caption{Datos del experimento de entrenamiento musical}
+\label{tab:ejemplo}
+\begin{tabular}{cccccc}
+\toprule
+\textbf{Niño} & \textbf{Antes ($X_1$)} & \textbf{Después ($X_2$)} & \textbf{$D_i$} & \textbf{$|D_i|$} & \textbf{Rango} \\
+\midrule
+1 & 10 & 12 & $-2$ & 2 & 3 \\
+2 & 12 & 14 & $-2$ & 2 & 3 \\
+3 & 11 & 13 & $-2$ & 2 & 3 \\
+4 & 13 & 15 & $-2$ & 2 & 3 \\
+5 & 9 & 11 & $-2$ & 2 & 3 \\
+6 & 14 & 16 & $-2$ & 2 & 3 \\
+7 & 10 & 12 & $-2$ & 2 & 3 \\
+8 & 12 & 14 & $-2$ & 2 & 3 \\
+9 & 11 & 13 & $-2$ & 2 & 3 \\
+10 & 13 & 15 & $-2$ & 2 & 3 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Paso 1: Calcular diferencias.} $D_i = X_{1i} - X_{2i}$. En este caso, todas las diferencias son $-2$.
+
+\textbf{Paso 2: Verificar diferencias cero.} No hay diferencias cero, por lo tanto $n = 10$.
+
+\textbf{Paso 3: Asignar rangos.} Todos los valores absolutos son iguales (2), por lo que hay un empate total. El rango promedio es $(1+2+...+10)/10 = 5.5$ para todos.
+
+\textbf{Paso 4: Aplicar signos.} Todas las diferencias son negativas, por lo tanto todos los rangos son negativos.
+
+\textbf{Paso 5: Calcular $T^+$ y $T^-$.}
+\begin{itemize}
+    \item $T^+ = 0$ (no hay rangos positivos)
+    \item $T^- = 10 \times 5.5 = 55$
+\end{itemize}
+
+\textbf{Verificación:} $T^+ + T^- = 0 + 55 = 55 = \frac{10(11)}{2}$ ✓
+
+\textbf{Paso 6: Estadístico de prueba.} $T = \min(0, 55) = 0$
+
+\textbf{Paso 7: Decisión.} Para $n = 10$ y $\alpha = 0.05$ (bilateral), el valor crítico de la tabla es $T_{0.025} = 8$. Dado que $T = 0 \leq 8$, se rechaza $H_0$.
+
+\textbf{Conclusión:} Existe evidencia estadística significativa para afirmar que el programa de entrenamiento musical produce una mejora en las puntuaciones de lectura de los niños.
 
 % --- ALGORITMO ---
 \section{Algoritmo}
 \label{sec:algoritmo}
-En esta sección se presenta la implementación...
-\begin{lstlisting}[caption=Algoritmo de Wilcoxon en Python]
-import numpy as np
-from scipy.stats import wilcoxon
 
-def prueba_wilcoxon_pareada(muestra1, muestra2, alpha=0.05):
-    # Calcular las diferencias
-    diferencias = np.array(muestra1) - np.array(muestra2)
-    
-    # Realizar la prueba de Wilcoxon
-    estadistico, p_valor = wilcoxon(diferencias)
-    
-    # Tomar decisión
-    if p_valor < alpha:
-        decision = "Rechazar H0: Existen diferencias significativas"
-    else:
-        decision = "No rechazar H0: No hay diferencias significativas"
-    
-    return estadistico, p_valor, decision
+A continuación se presenta la implementación en Python de la Prueba de Rangos con Signo de Wilcoxon. El código está diseñado para manejar tanto muestras pequeñas (usando tabla exacta) como muestras grandes (usando aproximación normal), e incluye el manejo de empates mediante rangos promedio.
 
-# Ejemplo de uso
-muestra_A = [23, 21, 25, 28, 22, 24, 27]
-muestra_B = [20, 22, 24, 25, 21, 23, 26]
+\subsection{Función para Asignación de Rangos con Empates}
 
-resultado = prueba_wilcoxon_pareada(muestra_A, muestra_B)
-print(f"Estadístico: {resultado[0]:.3f}")
-print(f"P-valor: {resultado[1]:.4f}")
-print(f"Decisión: {resultado[2]}")
+Esta función implementa el algoritmo de asignación de rangos cuando existen valores absolutos idénticos:
+
+\begin{lstlisting}[caption=Asignación de rangos con manejo de empates]
+def asignar_rangos_con_empates(valores_absolutos):
+    n = len(valores_absolutos)
+    indices = list(range(n))
+    
+    # Ordenar indices segun valores absolutos
+    for i in range(n):
+        for j in range(i + 1, n):
+            if valores_absolutos[indices[i]] > valores_absolutos[indices[j]]:
+                indices[i], indices[j] = indices[j], indices[i]
+    
+    # Asignar rangos con promedio para empates
+    rangos = [0] * n
+    i = 0
+    while i < n:
+        j = i
+        # Encontrar valores iguales (empates)
+        while j < n and abs(valores_absolutos[indices[j]] - 
+                           valores_absolutos[indices[i]]) < 0.0001:
+            j += 1
+        # Calcular rango promedio
+        rango_promedio = (i + 1 + j) / 2.0
+        for k in range(i, j):
+            rangos[indices[k]] = rango_promedio
+        i = j
+    return rangos
 \end{lstlisting}
+
+\subsection{Función Principal del Test de Wilcoxon}
+
+La función principal coordina todo el procedimiento de la prueba:
+
+\begin{lstlisting}[caption=Funcion principal del Test de Wilcoxon]
+def test_wilcoxon(muestra1, muestra2, nivel_significancia=0.05):
+    # Paso 1: Calcular diferencias
+    diferencias = []
+    for i in range(len(muestra1)):
+        diferencias.append(muestra1[i] - muestra2[i])
+    
+    # Paso 2: Eliminar diferencias cero
+    diferencias_sin_cero = [d for d in diferencias if abs(d) > 0.0001]
+    n = len(diferencias_sin_cero)
+    
+    # Paso 3: Calcular valores absolutos y rangos
+    valores_absolutos = [abs(d) for d in diferencias_sin_cero]
+    rangos = asignar_rangos_con_empates(valores_absolutos)
+    
+    # Paso 4: Aplicar signos originales
+    rangos_con_signo = []
+    for i in range(n):
+        if diferencias_sin_cero[i] > 0:
+            rangos_con_signo.append(rangos[i])
+        else:
+            rangos_con_signo.append(-rangos[i])
+    
+    # Paso 5: Calcular T+ y T-
+    T_positivo = sum(r for r in rangos_con_signo if r > 0)
+    T_negativo = sum(abs(r) for r in rangos_con_signo if r < 0)
+    
+    # Paso 6: Estadistico de prueba
+    T = min(T_positivo, T_negativo)
+    
+    return n, T_positivo, T_negativo, T
+\end{lstlisting}
+
+\subsection{Decisión con Tabla Exacta (Muestras Pequeñas)}
+
+Para $n \leq 25$, se utiliza una tabla de valores críticos precargada:
+
+\begin{lstlisting}[caption=Funcion de decision con tabla exacta]
+# Valores criticos para alpha = 0.05 (dos colas)
+TABLA_VALORES_CRITICOS = {
+    5: 0, 6: 2, 7: 3, 8: 5, 9: 8, 10: 10,
+    11: 13, 12: 17, 13: 21, 14: 25, 15: 30,
+    16: 35, 17: 41, 18: 47, 19: 53, 20: 60,
+    21: 68, 22: 75, 23: 83, 24: 91, 25: 100
+}
+
+def decision_tabla_exacta(n, T, alpha=0.05):
+    valor_critico = TABLA_VALORES_CRITICOS[n]
+    if T <= valor_critico:
+        return "Rechazar H0: diferencia significativa"
+    else:
+        return "No rechazar H0: sin diferencia significativa"
+\end{lstlisting}
+
+\subsection{Decisión con Aproximación Normal (Muestras Grandes)}
+
+Para $n > 25$, se aplica la aproximación por distribución normal:
+
+\begin{lstlisting}[caption=Funcion de decision con aproximacion normal]
+import math
+
+def decision_aproximacion_normal(n, T_positivo, alpha=0.05):
+    # Parametros teoricos
+    media = n * (n + 1) / 4.0
+    desviacion = math.sqrt(n * (n + 1) * (2*n + 1) / 24.0)
+    
+    # Calcular Z con correccion de continuidad
+    if T_positivo > media:
+        Z = (T_positivo - media - 0.5) / desviacion
+    else:
+        Z = (T_positivo - media + 0.5) / desviacion
+    
+    # Valor critico para alpha = 0.05 bilateral
+    Z_CRITICO = 1.96
+    
+    if abs(Z) > Z_CRITICO:
+        return f"Rechazar H0 (Z={Z:.4f})"
+    else:
+        return f"No rechazar H0 (Z={Z:.4f})"
+\end{lstlisting}
+
+El código completo está disponible en el repositorio del proyecto, con versiones interactiva y automatizada para diferentes entornos de ejecución.
 
 % --- CONCLUSIÓN ---
 \section{Conclusión}
 \label{sec:conclusion}
-En la conclusión, deben resumir...
+
+La Prueba de Rangos con Signo de Wilcoxon constituye una herramienta estadística fundamental para el análisis de observaciones pareadas cuando los supuestos de normalidad no pueden garantizarse. A lo largo de este documento se han expuesto sus fundamentos teóricos, el procedimiento sistemático de aplicación y una implementación algorítmica que permite automatizar los cálculos tanto para muestras pequeñas como grandes.
+
+El método presenta ventajas significativas frente a las pruebas paramétricas tradicionales: no requiere supuestos distribucionales, es robusto ante valores atípicos y mantiene una potencia estadística considerable en distribuciones simétricas no normales. La incorporación de la magnitud de las diferencias a través del sistema de rangos le confiere mayor sensibilidad que la prueba del signo, que solo considera la dirección de los cambios \parencite{wackerly2008}.
+
+Desde la perspectiva computacional, la implementación presentada demuestra que el algoritmo puede estructurarse de manera modular, separando claramente las etapas de cálculo de diferencias, asignación de rangos, obtención de estadísticos y toma de decisión. Esta modularidad facilita tanto la comprensión del método como su adaptación a diferentes contextos de aplicación.
+
+En el ámbito de la ingeniería de sistemas, la Prueba de Wilcoxon encuentra aplicaciones en la comparación de rendimiento de algoritmos, la evaluación de interfaces de usuario mediante estudios pre-post, y el análisis de métricas de calidad de software. Su implementación en Python, un lenguaje ampliamente utilizado en ciencia de datos, permite su integración natural en flujos de trabajo de análisis estadístico.
+
+En conclusión, dominar esta técnica no paramétrica enriquece el repertorio metodológico del profesional en ingeniería, proporcionando una alternativa rigurosa cuando las condiciones para aplicar métodos paramétricos no se cumplen. La combinación de fundamentos teóricos sólidos con una implementación práctica refuerza la comprensión integral del método y su aplicabilidad en problemas reales.
 
 % --- BIBLIOGRAFÍA ---
-\nocite{wackerly2008}
 \printbibliography[title={Bibliografía}]
 
 \end{document}
