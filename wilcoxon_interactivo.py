@@ -1,5 +1,8 @@
 import math
 
+# Tolerancia para comparaciones de punto flotante
+EPSILON = 0.0001
+
 #Valores criticos (alpha = 0.05, dos colas)
 TABLA_VALORES_CRITICOS = {
     5: 0, 6: 2, 7: 3, 8: 5, 9: 8, 10: 10,
@@ -31,7 +34,7 @@ def asignar_rangos_con_empates(valores_absolutos):
     while i < n:
         # Encontrar cuántos valores son iguales (empates)
         j = i
-        while j < n and abs(valores_absolutos[indices[j]] - valores_absolutos[indices[i]]) < 0.0001:
+        while j < n and abs(valores_absolutos[indices[j]] - valores_absolutos[indices[i]]) < EPSILON:
             j += 1
         # Calcular el rango promedio para los empates
         rango_promedio = (i + 1 + j) / 2.0
@@ -162,7 +165,7 @@ def test_wilcoxon(productividad_sin_musica, productividad_con_rock, nivel_signif
         diferencias.append(diferencia)
 
     # PASO 2: Eliminar ceros
-    diferencias_sin_cero = [d for d in diferencias if d != 0]
+    diferencias_sin_cero = [d for d in diferencias if abs(d) > EPSILON]
     tamaño_muestra = len(diferencias_sin_cero)
 
     if tamaño_muestra == 0:
@@ -170,7 +173,7 @@ def test_wilcoxon(productividad_sin_musica, productividad_con_rock, nivel_signif
         return
 
     if tamaño_muestra < 5:
-        print("\nLa muestra resultante es muy pequeña, por lo tanto, los resultados obtenidos pueden no son confiables")
+        print("\nLa muestra resultante es muy pequeña, por lo tanto, los resultados obtenidos pueden no ser confiables")
 
     cantidad_eliminados = len(diferencias) - tamaño_muestra
     print(f"\nDiferencias cero eliminadas: {cantidad_eliminados}")
