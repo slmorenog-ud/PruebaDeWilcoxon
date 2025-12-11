@@ -5,11 +5,6 @@
 
 % --- PAQUETES BÁSICOS ---
 \usepackage{fontspec}
-\usepackage{polyglossia}
-\setmainlanguage{spanish}
-\setmonofont{JetBrains Mono}[Scale=MatchLowercase]
-
-% --- PAQUETES DE FORMATO Y DISEÑO ---
 \usepackage{geometry}
 \geometry{
     a4paper,
@@ -18,6 +13,13 @@
     left=3cm,
     right=3cm
 }
+
+% Usar babel en lugar de polyglossia (más estable)
+\usepackage[spanish]{babel}
+\selectlanguage{spanish}
+
+% Fuente monoespaciada
+\setmonofont{JetBrains Mono}[Scale=MatchLowercase]
 
 % --- PAQUETES MATEMÁTICOS Y CIENTÍFICOS ---
 \usepackage{amsmath}
@@ -119,9 +121,9 @@
 % --- INTRODUCCIÓN ---
 \section{Introducción}
 
-La comparación de dos condiciones relacionadas es un procedimiento fundamental en el análisis estadístico aplicado a diversas áreas como las ciencias sociales, la ingeniería y las ciencias biomédicas. En numerosos casos, las diferencias entre mediciones pareadas no cumplen con los supuestos de normalidad requeridos por pruebas paramétricas como la prueba \textit{t} de Student para muestras relacionadas. Para abordar estas situaciones surge la Prueba de Rangos con Signo de Wilcoxon, un método no paramétrico que permite evaluar si existen diferencias significativas entre dos conjuntos de observaciones dependientes sin exigir distribuciones normales ni tamaños muestrales elevados \parencite{wackerly2008}.
+La comparación de dos condiciones relacionadas es un procedimiento fundamental en el análisis estadístico aplicado a diversas áreas como las ciencias sociales, la ingeniería y las ciencias biomédicas. En numerosos casos, las diferencias entre mediciones pareadas no cumplen con los supuestos de normalidad requeridos por pruebas paramétricas como la prueba \textit{t} de Student para muestras relacionadas. Para abordar estas situaciones surge la Prueba de Rangos con Signo de Wilcoxon, un método no paramétrico que permite evaluar si existen diferencias significativas entre dos conjuntos de observaciones dependientes sin exigir distribuciones normales ni tamaños muestrales elevados \cite{wackerly2008}.
 
-Propuesta por Frank Wilcoxon en 1945, esta prueba ordena los valores absolutos de las diferencias pareadas, asigna rangos y analiza tanto la magnitud como la dirección de los cambios. Según \textcite{wackerly2008}, este procedimiento incorpora más información que métodos basados únicamente en signos, lo que se traduce en una mayor potencia estadística en contextos donde los datos no presentan normalidad. Debido a su flexibilidad, la prueba ha sido ampliamente utilizada en escenarios como el control de calidad, el análisis de experimentos con diseños repetidos, la validación de algoritmos y la evaluación de intervenciones en sistemas físicos o humanos.
+Propuesta por Frank Wilcoxon en 1945, esta prueba ordena los valores absolutos de las diferencias pareadas, asigna rangos y analiza tanto la magnitud como la dirección de los cambios. Según \citeauthor{wackerly2008}, este procedimiento incorpora más información que métodos basados únicamente en signos, lo que se traduce en una mayor potencia estadística en contextos donde los datos no presentan normalidad. Debido a su flexibilidad, la prueba ha sido ampliamente utilizada en escenarios como el control de calidad, el análisis de experimentos con diseños repetidos, la validación de algoritmos y la evaluación de intervenciones en sistemas físicos o humanos.
 
 El presente documento tiene como propósito exponer los fundamentos teóricos de la Prueba de Rangos con Signo de Wilcoxon, su procedimiento de aplicación para muestras pequeñas y grandes, y una implementación algorítmica en Python que permite automatizar los cálculos. Se incluye además un ejemplo desarrollado paso a paso que ilustra la utilidad práctica del método en situaciones donde las pruebas paramétricas tradicionales resultan inapropiadas.
 
@@ -131,13 +133,13 @@ El presente documento tiene como propósito exponer los fundamentos teóricos de
 
 \subsection{Fundamentos de las Pruebas No Paramétricas}
 
-Las pruebas estadísticas pueden clasificarse en dos grandes categorías: paramétricas y no paramétricas. Las pruebas paramétricas, como la prueba \textit{t} de Student, requieren que los datos provengan de poblaciones con distribuciones conocidas (generalmente normal) y que se cumplan ciertos supuestos sobre los parámetros poblacionales. Cuando estos supuestos no se satisfacen, las pruebas no paramétricas ofrecen una alternativa robusta \parencite{wackerly2008}.
+Las pruebas estadísticas pueden clasificarse en dos grandes categorías: paramétricas y no paramétricas. Las pruebas paramétricas, como la prueba \textit{t} de Student, requieren que los datos provengan de poblaciones con distribuciones conocidas (generalmente normal) y que se cumplan ciertos supuestos sobre los parámetros poblacionales. Cuando estos supuestos no se satisfacen, las pruebas no paramétricas ofrecen una alternativa robusta \cite{wackerly2008}.
 
 Las pruebas no paramétricas, también llamadas pruebas de distribución libre, no requieren supuestos sobre la forma de la distribución poblacional. Estas pruebas trabajan típicamente con rangos u ordenamientos de los datos en lugar de los valores originales, lo que las hace menos sensibles a valores atípicos y distribuciones asimétricas.
 
 \subsection{La Prueba de Rangos con Signo de Wilcoxon}
 
-La Prueba de Rangos con Signo de Wilcoxon es un procedimiento no paramétrico utilizado para comparar dos mediciones relacionadas cuando no se pueden asumir distribuciones normales en las diferencias. Se aplica en situaciones donde cada unidad experimental aporta un par de observaciones $(X_{1i}, X_{2i})$, con el objetivo de evaluar si existe una diferencia significativa entre las dos condiciones \parencite{wackerly2008}.
+La Prueba de Rangos con Signo de Wilcoxon es un procedimiento no paramétrico utilizado para comparar dos mediciones relacionadas cuando no se pueden asumir distribuciones normales en las diferencias. Se aplica en situaciones donde cada unidad experimental aporta un par de observaciones $(X_{1i}, X_{2i})$, con el objetivo de evaluar si existe una diferencia significativa entre las dos condiciones \cite{wackerly2008}.
 
 \subsubsection{Hipótesis}
 
@@ -149,7 +151,7 @@ La prueba evalúa las siguientes hipótesis:
 
 \subsubsection{Procedimiento}
 
-Según \textcite{wackerly2008}, el procedimiento para aplicar la Prueba de Rangos con Signo de Wilcoxon es el siguiente:
+Según \citeauthor{wackerly2008}, el procedimiento para aplicar la Prueba de Rangos con Signo de Wilcoxon es el siguiente:
 
 \begin{enumerate}
     \item \textbf{Calcular las diferencias:} Para cada par de observaciones $(X_{1i}, X_{2i})$, calcular la diferencia $D_i = X_{1i} - X_{2i}$.
@@ -181,7 +183,7 @@ T^+ + T^- = \frac{n(n+1)}{2}
 
 \subsection{Muestras Pequeñas: Uso de la Tabla Exacta}
 
-Para muestras pequeñas (generalmente $n \leq 25$), la distribución del estadístico $T$ bajo $H_0$ está tabulada. \textcite{wackerly2008} proporcionan tablas con valores críticos para diferentes niveles de significancia $\alpha$.
+Para muestras pequeñas (generalmente $n \leq 25$), la distribución del estadístico $T$ bajo $H_0$ está tabulada. \citeauthor{wackerly2008} proporcionan tablas con valores críticos para diferentes niveles de significancia $\alpha$.
 
 La regla de decisión para una prueba bilateral con nivel de significancia $\alpha$ es:
 \begin{quote}
@@ -190,7 +192,7 @@ La regla de decisión para una prueba bilateral con nivel de significancia $\alp
 
 \subsection{Muestras Grandes: Aproximación Normal}
 
-Para tamaños de muestra grandes ($n > 25$), la distribución del estadístico $T^+$ puede aproximarse mediante una distribución normal. Según \textcite{wackerly2008}, bajo la hipótesis nula, los parámetros de esta distribución son:
+Para tamaños de muestra grandes ($n > 25$), la distribución del estadístico $T^+$ puede aproximarse mediante una distribución normal. Según \citeauthor{wackerly2008}, bajo la hipótesis nula, los parámetros de esta distribución son:
 
 \textbf{Media:}
 \[
@@ -394,7 +396,7 @@ El código completo está disponible en el repositorio del proyecto, con version
 
 La Prueba de Rangos con Signo de Wilcoxon constituye una herramienta estadística fundamental para el análisis de observaciones pareadas cuando los supuestos de normalidad no pueden garantizarse. A lo largo de este documento se han expuesto sus fundamentos teóricos, el procedimiento sistemático de aplicación y una implementación algorítmica que permite automatizar los cálculos tanto para muestras pequeñas como grandes.
 
-El método presenta ventajas significativas frente a las pruebas paramétricas tradicionales: no requiere supuestos distribucionales, es robusto ante valores atípicos y mantiene una potencia estadística considerable en distribuciones simétricas no normales. La incorporación de la magnitud de las diferencias a través del sistema de rangos le confiere mayor sensibilidad que la prueba del signo, que solo considera la dirección de los cambios \parencite{wackerly2008}.
+El método presenta ventajas significativas frente a las pruebas paramétricas tradicionales: no requiere supuestos distribucionales, es robusto ante valores atípicos y mantiene una potencia estadística considerable en distribuciones simétricas no normales. La incorporación de la magnitud de las diferencias a través del sistema de rangos le confiere mayor sensibilidad que la prueba del signo, que solo considera la dirección de los cambios \cite{wackerly2008}.
 
 Desde la perspectiva computacional, la implementación presentada demuestra que el algoritmo puede estructurarse de manera modular, separando claramente las etapas de cálculo de diferencias, asignación de rangos, obtención de estadísticos y toma de decisión. Esta modularidad facilita tanto la comprensión del método como su adaptación a diferentes contextos de aplicación.
 
@@ -403,6 +405,9 @@ En el ámbito de la ingeniería de sistemas, la Prueba de Wilcoxon encuentra apl
 En conclusión, dominar esta técnica no paramétrica enriquece el repertorio metodológico del profesional en ingeniería, proporcionando una alternativa rigurosa cuando las condiciones para aplicar métodos paramétricos no se cumplen. La combinación de fundamentos teóricos sólidos con una implementación práctica refuerza la comprensión integral del método y su aplicabilidad en problemas reales.
 
 % --- BIBLIOGRAFÍA ---
-\printbibliography[title={Bibliografía}]
+\begin{thebibliography}{9}
+\bibitem{wackerly2008}
+Wackerly, D., Mendenhall, W., \& Scheaffer, R. (2008). \emph{Mathematical Statistics with Applications}. Cengage Learning.
+\end{thebibliography}
 
 \end{document}
